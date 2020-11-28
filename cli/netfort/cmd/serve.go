@@ -8,8 +8,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gigovich/netfort/pkg/config"
-	"github.com/gigovich/netfort/pkg/server"
+	"github.com/gigovich/oxovpn-api/pkg/config"
+	"github.com/gigovich/oxovpn-api/pkg/server"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )

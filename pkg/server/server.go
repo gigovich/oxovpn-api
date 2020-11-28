@@ -7,7 +7,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/gigovich/netfort/pkg/config"
+	"github.com/gigovich/oxovpn-api/pkg/config"
 	"github.com/gin-gonic/gin"
 )
 
