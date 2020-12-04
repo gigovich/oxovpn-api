@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/gigovich/oxovpn-api/cli/netfort/cmd"
+	"github.com/gigovich/oxovpn-api/cmd/oxovpn-api/cmd"
 )
 
 func main() {

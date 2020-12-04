@@ -11,6 +11,11 @@ type Config struct {
 	// Debug configuration for logger and other tracing stuff.
 	Debug bool `yaml:"debug" env:"DEBUG"`
 
+	// JWT settings.
+	JWT struct {
+		Secret string `yaml:"secret" env:"JWT_SECRET"`
+	} `yaml:"jwt"`
+
 	// DB settings.
 	DB struct {
 		// ConnURL

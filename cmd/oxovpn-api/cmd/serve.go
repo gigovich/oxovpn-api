@@ -49,7 +49,13 @@ all static files served from the root '/'.`,
 			os.Exit(1)
 		}
 
-		srv, err := server.Run(logger, cfg, server.Create())
+		engine, err := server.Create()
+		if err != nil {
+			fmt.Println("create http engine: %v", err)
+			os.Exit(1)
+		}
+
+		srv, err := server.Run(logger, cfg, engine)
 		if err != nil {
 			os.Exit(1)
 		}

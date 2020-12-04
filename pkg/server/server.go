@@ -8,13 +8,29 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gigovich/oxovpn-api/pkg/config"
+	"github.com/gigovich/oxovpn-api/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 // Create GIN engine router.
-func Create() *gin.Engine {
+func Create(log *zap.Logger, cfg config.Config) (*gin.Engine, error) {
+	authMid, err := middleware.Auth(log, cfg)
+	if err != nil {
+		return nil, err
+	}
+
 	e := gin.Default()
-	return e
+	e.Use(authMid.MiddlewareFunc())
+	e.Use(gin.Recovery())
+
+	v1 := e.Group("/api/v1")
+
+	auth := v1.Group("/auth")
+	auth.POST("/login", authMid.LoginHandler)
+	auth.GET("/refresh_token", authMid.RefreshHandler)
+	auth.GET("/logout", authMid.LogoutHandler)
+
+	return e, nil
 }
 
 // Run gin-gonic engine to serve requests.
