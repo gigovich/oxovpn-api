@@ -49,9 +49,9 @@ all static files served from the root '/'.`,
 			os.Exit(1)
 		}
 
-		engine, err := server.Create()
+		engine, err := server.Create(logger, cfg)
 		if err != nil {
-			fmt.Println("create http engine: %v", err)
+			fmt.Println("create http engine:", err)
 			os.Exit(1)
 		}
 

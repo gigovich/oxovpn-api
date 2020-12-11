@@ -1,0 +1,40 @@
+package model
+
+//go:generate ddb
+
+import (
+	"time"
+
+	"github.com/gigovich/ddb/schema"
+	"golang.org/x/crypto/bcrypt"
+)
+
+// UserRecord for query results
+type UserRecord struct {
+	ID int `json:"id"`
+
+	Email        string `json:"email" ddb:"get"`
+	PasswordHash []byte `json:"password_hash"`
+	FirstName    string `json:"first_name"`
+	LastName     string `json:"last_name"`
+	IsActive     bool   `json:"is_active"`
+
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+// Schema for the generator
+func (u UserRecord) Schema() schema.Table {
+	return schema.Default(&u).WithGetter(&u.Email)
+}
+
+// Authenticate user may password
+func (u *UserRecord) Authenticate(password string) bool {
+	return bcrypt.CompareHashAndPassword(u.PasswordHash, []byte(password)) == nil
+}
+
+// SetPassword by bcrypt encoding
+func (u *UserRecord) SetPassword(password string) (err error) {
+	u.PasswordHash, err = bcrypt.GenerateFromPassword([]byte(password), 14)
+	return err
+}
