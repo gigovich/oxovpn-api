@@ -5,8 +5,9 @@ package model
 import (
 	"time"
 
-	"github.com/gigovich/ddb/schema"
 	"golang.org/x/crypto/bcrypt"
+
+	dsl "github.com/gigovich/ddb/schema"
 )
 
 // UserRecord for query results
@@ -24,8 +25,12 @@ type UserRecord struct {
 }
 
 // Schema for the generator
-func (u UserRecord) Schema() schema.Table {
-	return schema.Default(&u).WithGetter(&u.Email)
+func (u UserRecord) Schema() dsl.Table {
+	return dsl.Table{
+		PK:    dsl.PK{u.ID},
+		Index: dsl.Index{u.Email},
+		GetBy: dsl.GetBy{u.Email},
+	}
 }
 
 // Authenticate user may password
