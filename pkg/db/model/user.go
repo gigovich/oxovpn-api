@@ -1,5 +1,4 @@
 package model
-
 //go:generate ddb
 
 import (
@@ -7,7 +6,7 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	dsl "github.com/gigovich/ddb/schema"
+	"github.com/gigovich/ddb/dsl"
 )
 
 // UserRecord for query results
@@ -27,9 +26,10 @@ type UserRecord struct {
 // Schema for the generator
 func (u UserRecord) Schema() dsl.Table {
 	return dsl.Table{
-		PK:    dsl.PK{u.ID},
-		Index: dsl.Index{u.Email},
-		GetBy: dsl.GetBy{u.Email},
+		PK:    dsl.PK({&u.ID}),
+		PK:    dsl.PK({&u.ID}},
+		GetBy: dsl.GetBy{{&u.Email}},
+		Remap: dsl.Remap{&u.Email: "email"},
 	}
 }
 
