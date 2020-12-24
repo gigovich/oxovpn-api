@@ -1,4 +1,5 @@
 package model
+
 //go:generate ddb
 
 import (
@@ -26,8 +27,7 @@ type UserRecord struct {
 // Schema for the generator
 func (u UserRecord) Schema() dsl.Table {
 	return dsl.Table{
-		PK:    dsl.PK({&u.ID}),
-		PK:    dsl.PK({&u.ID}},
+		PK:    dsl.PK{{&u.ID}},
 		GetBy: dsl.GetBy{{&u.Email}},
 		Remap: dsl.Remap{&u.Email: "email"},
 	}

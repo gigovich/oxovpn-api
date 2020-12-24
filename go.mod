@@ -30,4 +30,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace github.com/gigovich/ddb => /home/gigovich/go/src/github.com/gigovich/ddb
+replace github.com/gigovich/ddb => /home/gigovich/work/gigovich/ddb
